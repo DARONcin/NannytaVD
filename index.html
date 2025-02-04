@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nannyta, ¿Quieres ser mi San Valentín?</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: #464545cc;
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        .particles-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+        .particle {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background-color: rgba(255, 69, 0, 0.9);
+            border-radius: 50%;
+            opacity: 0.9;
+            animation: float 4s infinite ease-in-out;
+        }
+        @keyframes float {
+            0% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-20px) scale(1.2); }
+            100% { transform: translateY(0) scale(1); }
+        }
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            width: 100%;
+            max-width: 350px;
+            position: relative;
+            z-index: 10;
+        }
+        .card img {
+            width: 100%;
+            border-radius: 10px;
+        }
+        .buttons {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            align-items: center;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 18px;
+            border: none;
+            cursor: pointer;
+            border-radius: 10px;
+            transition: transform 0.2s, background 0.3s;
+            width: 100%;
+            max-width: 200px;
+        }
+        .yes {
+            background-color: #4CAF50;
+            color: white;
+            transition: transform 0.3s ease-in-out;
+        }
+        .yes:hover {
+            background-color: #45a049;
+        }
+        .no {
+            background-color: #e74c3c;
+            color: white;
+        }
+        .no:hover {
+            background-color: #c0392b;
+        }
+    </style>
+</head>
+<body>
+    <div class="particles-container"></div>
+    
+    <!-- Música de fondo -->
+    <audio id="background-music" loop autoplay>
+        <source src="acapulco.mp3" type="audio/mpeg">
+        Tu navegador no soporta el audio HTML5.
+    </audio>
+
+    <div class="card">
+        <h2>¿Quieres ser mi San Valentín?</h2>
+        <h2>🧡🧡🧡</h2>
+        <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExcWRlM3Bqamprd3R5bHZzajA3enAwMnAyeHZreXFtYXpldml5ano0ZyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/KmxmoHUGPDjfQXqGgv/giphy.gif" alt="San Valentín">
+        <p>Presiona el "No" varias veces para que veas qué pasa 😏</p>
+        <div class="buttons">
+            <button class="yes" onclick="confirmarSi(this)">Sí 🧡</button>
+            <button class="no" onclick="cambiarMensaje(this)">No 😭</button>
+        </div>
+    </div>
+
+    <script>
+        // Partículas flotantes
+        let container = document.querySelector(".particles-container");
+        for (let i = 0; i < 30; i++) {
+            let particle = document.createElement("div");
+            particle.classList.add("particle");
+            particle.style.left = Math.random() * 100 + "vw";
+            particle.style.top = Math.random() * 100 + "vh";
+            particle.style.backgroundColor = Math.random() > 0.5 ? "rgba(255, 69, 0, 0.9)" : "rgba(255, 20, 147, 0.9)";
+            particle.style.animationDuration = (Math.random() * 2 + 2) + "s";
+            particle.style.animationDelay = Math.random() * 2 + "s";
+            container.appendChild(particle);
+        }
+
+        // Función para iniciar la música de fondo en algunos navegadores
+        document.addEventListener("DOMContentLoaded", function() {
+            let audio = document.getElementById("background-music");
+            audio.volume = 0.5; // Ajusta el volumen si es necesario
+            audio.play().catch(error => console.log("Reproducción automática bloqueada"));
+        });
+
+        // Mensajes de "No"
+        let mensajesNo = ["¿Estás segura? 😢", "Piénsalo bien amor... 🤔", "Todavía tienes tiempo de cambiar de opinión 🥺", "Ándale, me echo la culpa 🥹", "Última oportunidad... 😭"];
+        let contadorNo = 0;
+        let aumentoSi = 1;
+
+        function confirmarSi(btn) {
+            window.location.href = "https://wa.me/6143571920?text=Hola%20menso%20Aar%C3%B3n,%20me%20encantar%C3%ADa%20ser%20tu%20San%20Valent%C3%ADn,%20te%20amo%20chiquito%20%F0%9F%A7%A1";
+        }
+
+        function cambiarMensaje(btn) {
+            let btnSi = document.querySelector('.yes');
+            aumentoSi += 0.2;
+            btnSi.style.transform = `scale(${aumentoSi}) translateY(-5px)`;
+            btnSi.style.transition = "transform 0.3s ease-out";
+
+            if (contadorNo < mensajesNo.length) {
+                btn.innerText = mensajesNo[contadorNo];
+                contadorNo++;
+            } else {
+                btn.innerText = "Ya no puedes decir que no mi amor 🙂‍↔️🙂‍↔️🙂‍↔️";
+            }
+        }
+    </script>
+</body>
+</html>
